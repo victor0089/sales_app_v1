@@ -95,3 +95,10 @@ CREATE TABLE IF NOT EXISTS inventory_adjusting_entry (
     FOREIGN KEY (general_journal_id) REFERENCES general_journal(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL, -- Use appropriate hashing for passwords
+    permissions TEXT
+);
+
