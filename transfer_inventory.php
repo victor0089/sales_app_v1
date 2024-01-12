@@ -76,7 +76,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endforeach; ?>
         </select>
 
+
         <button type="submit">Initiate Transfer</button>
     </form>
+    // ... Existing code ...
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // ... Existing code ...
+
+    // Update daily record for expense
+    $conn->query("INSERT INTO daily_records (record_date, expense) VALUES (CURDATE(), $total)");
+
+    // ... Existing code ...
+}
+
 </body>
 </html>
