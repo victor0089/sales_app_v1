@@ -37,3 +37,10 @@ CREATE TABLE IF NOT EXISTS customers (
     name VARCHAR(255) NOT NULL,
     credit_limit DECIMAL(10, 2) NOT NULL
 );
+CREATE TABLE IF NOT EXISTS daily_records (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    record_date DATE NOT NULL,
+    income DECIMAL(10, 2) DEFAULT 0,
+    expense DECIMAL(10, 2) DEFAULT 0
+);
+
