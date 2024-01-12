@@ -43,4 +43,55 @@ CREATE TABLE IF NOT EXISTS daily_records (
     income DECIMAL(10, 2) DEFAULT 0,
     expense DECIMAL(10, 2) DEFAULT 0
 );
-
+CREATE TABLE IF NOT EXISTS general_journal (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    entry_date DATE NOT NULL,
+    description TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS journal_entry (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    general_journal_id INT,
+    account_id INT,
+    amount DECIMAL(10, 2),
+    FOREIGN KEY (general_journal_id) REFERENCES general_journal(id),
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+CREATE TABLE IF NOT EXISTS ledger (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    account_id INT,
+    entry_date DATE,
+    debit DECIMAL(10, 2),
+    credit DECIMAL(10, 2),
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+CREATE TABLE IF NOT EXISTS deposit_withdraw (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    entry_date DATE,
+    description TEXT,
+    amount DECIMAL(10, 2),
+    type ENUM('Deposit', 'Withdraw')
+);
+CREATE TABLE IF NOT EXISTS cash_discount (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    entry_date DATE,
+    description TEXT,
+    amount DECIMAL(10, 2)
+);
+CREATE TABLE IF NOT EXISTS sales_returns_allowances (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    general_journal_id INT,
+    product_id INT,
+    quantity INT,
+    amount DECIMAL(10, 2),
+    FOREIGN KEY (general_journal_id) REFERENCES general_journal(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+CREATE TABLE IF NOT EXISTS inventory_adjusting_entry (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    general_journal_id INT,
+    product_id INT,
+    new_quantity INT,
+    new_cost DECIMAL(10, 2),
+    FOREIGN KEY (general_journal_id) REFERENCES general_journal(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
